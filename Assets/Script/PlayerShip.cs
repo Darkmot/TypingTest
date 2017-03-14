@@ -8,8 +8,18 @@ public class PlayerShip : MonoBehaviour {
     public RectTransform rt;
     public GameplayScreen gameplayScreen;
     public ScoreScreen scoreScreen;
-
+    public int score;
+    public int scoreModifier;
     public bool alive;
+    
+    void OnEnable()
+    {
+        alive = true;
+        score = 0;
+        scoreModifier = 1;
+        rt.localRotation = Quaternion.identity;
+    }
+
     public void ShotEnemy(BaseEnemy target)
     {
         GameObject g = Instantiate(bulletPrefab);
@@ -22,12 +32,13 @@ public class PlayerShip : MonoBehaviour {
         float angle = Mathf.Atan2(enemyPos.y, enemyPos.x) * Mathf.Rad2Deg - 90f;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         rt.rotation = rotation;
-    
+
+        score += scoreModifier;
     }
 
     void PlayerReady()
     {
-        GameManager.InitGame();       
+        GameManager.InitLevel();       
     }
 
     void OnPlayerFinished()

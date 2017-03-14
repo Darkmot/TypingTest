@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameplayScreen : BaseScreen {
+    public IntermissionTitle intermission;
+    public PausedScreen pausedScreen;
+
     public new void ActivateScreen(bool show)
     {
         if (show)
@@ -12,7 +15,11 @@ public class GameplayScreen : BaseScreen {
 
     public void PauseGame()
     {
-        GameManager.State = GameState.Paused;
+        if (GameManager.State == GameState.Play)
+        {
+            pausedScreen.ActivateScreen(true);
+            GameManager.State = GameState.Paused;
+        }
     }
 
     public void ClearEnemySelection()

@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour {
     public GameObject enemySmallPrefab;
     public GameState gameState;
     public int enemyNumber;
+    public int enemySpeed;
+    public int level;
 
     private KeyCode[] letterKeys = { KeyCode.A,KeyCode.B,KeyCode.C,KeyCode.D,KeyCode.E,KeyCode.F,KeyCode.G,KeyCode.H,
                                    KeyCode.I,KeyCode.J,KeyCode.K,KeyCode.L,KeyCode.M,KeyCode.N,KeyCode.O,KeyCode.P,
@@ -30,6 +32,9 @@ public class GameManager : MonoBehaviour {
     private char[] letters = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
     char currentKey;
     BaseEnemy currentEnemy;
+
+
+
     bool IsLetterPressed()
     {
         int indexLetter = 0;
@@ -64,23 +69,29 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public static void InitGame()
+    public static void InitLevel()
     {
+        _instance.level = 0;
+        InitNextLevel();
+    }
+    public static void InitNextLevel()
+    {
+        _instance.level++;
         _instance.enemyList = new List<BaseEnemy>();
-        for (int i = 0; i < _instance.enemyNumber; i++)
+        int startRandom = 640;
+        for (int i = 0; i < _instance.enemyNumber + (_instance.level / 2); i++)
         {
             GameObject g = Instantiate(_instance.enemySmallPrefab);
             g.transform.SetParent(_instance.gameplayScreen, false);
-            BaseEnemy enemy = g.GetComponent<BaseEnemy>();
-            enemy.InitEnemy();
+            BaseEnemy enemy = g.GetComponent<BaseEnemy>();          
+            enemy.InitEnemy(new Vector2(Random.Range(10, 320), startRandom),_instance.enemySpeed + (_instance.level * 5) );
+            startRandom = Random.Range(startRandom, startRandom + 20);
             _instance.enemyList.Add(enemy);
         }
         _instance.currentEnemy = null;
         _instance.playerShip.gameObject.SetActive(true);
-        _instance.playerShip.alive = true;
         _instance.gameState = GameState.Play;
 
-        print("Game Initialized");
     }
 
     public static PlayerShip Player
@@ -191,10 +202,8 @@ public class GameManager : MonoBehaviour {
 
         if (_instance.enemyList.Count <= 0)
         {
-            _instance.playerShip.gameplayScreen.ActivateScreen(false);
-            _instance.playerShip.scoreScreen.ActivateScreen(true);
-            GameManager.ClearEnemyList();
-            GameManager.State = GameState.Score;
+            _instance.playerShip.gameplayScreen.intermission.StartIntermission(_instance.level+1,_instance.playerShip.score);
+            GameManager.State = GameState.Intermission;
         }
         return removed;
     }

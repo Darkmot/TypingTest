@@ -19,12 +19,13 @@ public class BaseEnemy : MonoBehaviour {
     int life;
     float delay;
 
-    public void InitEnemy()
+    public void InitEnemy(Vector2 newPos,float iSpeed)
     {
         ResizeWord(GameManager.TextDB.GetRandomWord(Random.Range(minWord,maxWord+1)));
         life = wordToHit.Length;
+        speed = iSpeed;
 
-        rt.anchoredPosition = new Vector2(Random.Range(10, 320), Random.Range(640, 720));
+        rt.anchoredPosition = newPos;
         Vector2 playerPos = GameManager.Player.GetComponent<RectTransform>().anchoredPosition - rt.anchoredPosition;
         float angle = Mathf.Atan2(playerPos.y,playerPos.x) * Mathf.Rad2Deg - 90f;
         Quaternion rotation = Quaternion.AngleAxis(angle,Vector3.forward);
