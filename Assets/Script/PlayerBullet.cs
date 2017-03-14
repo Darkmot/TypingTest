@@ -21,9 +21,9 @@ public class PlayerBullet : MonoBehaviour {
         rt.rotation = rotation;
         stop = false;
 	}
-    public void Update()
+    void Update()
     {
-        if (!stop)
+        if ((GameManager.State==GameState.Play)&&(!stop))
             rt.anchoredPosition = Vector2.MoveTowards(rt.anchoredPosition, enemyTarget.rt.anchoredPosition, speed * Time.deltaTime);
     }
     void OnTriggerEnter2D(Collider2D target)

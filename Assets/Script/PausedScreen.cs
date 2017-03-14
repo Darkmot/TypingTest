@@ -18,5 +18,9 @@ public class PausedScreen : BaseScreen {
             previousScreen.GetComponent<BaseScreen>().ActivateScreen(true);
             previousScreen = null;
         }
+        else
+        {
+            GameManager.State = GameState.Play;
+        }
     }
 }

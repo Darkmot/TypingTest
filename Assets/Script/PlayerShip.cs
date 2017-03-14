@@ -6,6 +6,8 @@ public class PlayerShip : MonoBehaviour {
 
     public GameObject bulletPrefab;
     public RectTransform rt;
+    public GameplayScreen gameplayScreen;
+    public ScoreScreen scoreScreen;
 
     public bool alive;
     public void ShotEnemy(BaseEnemy target)
@@ -30,7 +32,10 @@ public class PlayerShip : MonoBehaviour {
 
     void OnPlayerFinished()
     {
-        gameObject.SetActive(false);
+        gameplayScreen.ActivateScreen(false);
+        scoreScreen.ActivateScreen(true);
+        GameManager.ClearEnemyList();
+        GameManager.State = GameState.Score;
     }
     void OnTriggerEnter2D(Collider2D target)
     {

@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour {
         _instance.currentEnemy = null;
         _instance.playerShip.gameObject.SetActive(true);
         _instance.playerShip.alive = true;
+        _instance.gameState = GameState.Play;
 
         print("Game Initialized");
     }
@@ -116,13 +117,13 @@ public class GameManager : MonoBehaviour {
         {
             if ( (_instance.playerShip.alive)&&(IsLetterPressed()))
             {
-                if (currentEnemy == null)
+                if (_instance.currentEnemy == null)
                 {
                     foreach (BaseEnemy enemy in enemyList)
                     {
                         if ((enemy.wordToHit.Length > 0) && (enemy.wordToHit[0] == currentKey))
                         {
-                            currentEnemy = enemy;
+                            _instance.currentEnemy = enemy;
                             enemy.transform.SetAsLastSibling();
                             enemy.SetSelected(true);
                             if (enemy.wordToHit.Length > 1)
@@ -132,7 +133,7 @@ public class GameManager : MonoBehaviour {
                             else
                             {
                                 enemy.ResizeWord("");
-                                currentEnemy = null;
+                                _instance.currentEnemy = null;
                             }
                             _instance.playerShip.ShotEnemy(enemy);
                             break;
@@ -141,19 +142,19 @@ public class GameManager : MonoBehaviour {
                 }
                 else
                 {
-                    if ((currentEnemy.wordToHit.Length > 0) && (currentEnemy.wordToHit[0] == currentKey))
+                    if ((_instance.currentEnemy.wordToHit.Length > 0) && (_instance.currentEnemy.wordToHit[0] == currentKey))
                     {
-                        BaseEnemy prevEnemy = currentEnemy;
-                        currentEnemy.SetSelected(true);
-                        currentEnemy.transform.SetAsLastSibling();
-                        if (currentEnemy.wordToHit.Length > 1)
+                        BaseEnemy prevEnemy = _instance.currentEnemy;
+                        _instance.currentEnemy.SetSelected(true);
+                        _instance.currentEnemy.transform.SetAsLastSibling();
+                        if (_instance.currentEnemy.wordToHit.Length > 1)
                         {
-                            currentEnemy.ResizeWord(currentEnemy.wordToHit.Substring(1, currentEnemy.wordToHit.Length - 1));
+                            _instance.currentEnemy.ResizeWord(_instance.currentEnemy.wordToHit.Substring(1, _instance.currentEnemy.wordToHit.Length - 1));
                         }
                         else
                         {
-                            currentEnemy.ResizeWord("");
-                            currentEnemy = null;
+                            _instance.currentEnemy.ResizeWord("");
+                            _instance.currentEnemy = null;
                         }
                         _instance.playerShip.ShotEnemy(prevEnemy);
                     }
@@ -161,9 +162,47 @@ public class GameManager : MonoBehaviour {
             }
             else if (Input.GetKeyDown(KeyCode.Backspace))
             {
-                currentEnemy.SetSelected(false);
-                currentEnemy = null;
+                ClearCurrentEnemy();
             }
+        }
+    }
+
+
+    public static void ClearCurrentEnemy()
+    {
+        _instance.currentEnemy.SetSelected(false);
+        _instance.currentEnemy = null;
+    }
+
+    public static void ClearEnemyList()
+    {
+        int enemyCount = _instance.enemyList.Count;
+        for (int i = enemyCount - 1; i >= 0; i--)
+        {
+            GameObject g = _instance.enemyList[i].gameObject;
+            _instance.enemyList.RemoveAt(i);
+            Destroy(g);
+        }
+    }
+    public static bool RemoveEnemy(BaseEnemy enemy)
+    {
+        bool removed = _instance.enemyList.Remove(enemy);
+        Destroy(enemy.gameObject);
+
+        if (_instance.enemyList.Count <= 0)
+        {
+            _instance.playerShip.gameplayScreen.ActivateScreen(false);
+            _instance.playerShip.scoreScreen.ActivateScreen(true);
+            GameManager.ClearEnemyList();
+            GameManager.State = GameState.Score;
+        }
+        return removed;
+    }
+    public static int EnemyCount
+    {
+        get
+        {
+            return _instance.enemyList.Count;
         }
     }
 }

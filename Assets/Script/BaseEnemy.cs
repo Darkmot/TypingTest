@@ -59,15 +59,18 @@ public class BaseEnemy : MonoBehaviour {
         }
     }
 
-    public void Update()
+    void Update()
     {
-        if (delay > 0f)
+        if (GameManager.State == GameState.Play)
         {
-            delay -= Time.deltaTime;
-        }
-        else
-        {
-            rt.anchoredPosition = Vector2.MoveTowards(rt.anchoredPosition, GameManager.Player.GetComponent<RectTransform>().anchoredPosition, speed * Time.deltaTime);
+            if (delay > 0f)
+            {
+                delay -= Time.deltaTime;
+            }
+            else
+            {
+                rt.anchoredPosition = Vector2.MoveTowards(rt.anchoredPosition, GameManager.Player.GetComponent<RectTransform>().anchoredPosition, speed * Time.deltaTime);
+            }
         }
     }
 
@@ -83,6 +86,6 @@ public class BaseEnemy : MonoBehaviour {
     }
     void OnEnemyFinished()
     {
-        Destroy(gameObject);
+        GameManager.RemoveEnemy(this);
     }
 }
