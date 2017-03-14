@@ -81,9 +81,14 @@ public class BaseEnemy : MonoBehaviour {
         delay = 0.2f;
         if (life <= 0)
         {
-            delay = 0f;
-            anim.SetTrigger("Blast");
+            Explode();
         }
+    }
+    public void Explode()
+    {
+        life = 0;
+        delay = 0f;
+        anim.SetTrigger("Blast");
     }
     void OnEnemyFinished()
     {

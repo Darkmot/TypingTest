@@ -217,6 +217,10 @@ public class GameManager : MonoBehaviour {
             {
                 ClearCurrentEnemy();
             }
+            else if (Input.GetKeyDown(KeyCode.Return))
+            {
+                _instance.playerShip.BlastEMP();
+            }
         }
     }
 
