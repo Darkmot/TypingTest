@@ -9,5 +9,8 @@ public class TitleScreen : BaseScreen {
             GameManager.State = GameState.Title;
         base.ActivateScreen(show);
     }
-
+    void OnEnable()
+    {
+        Screen.SetResolution(400,640,false);
+    }
 }
