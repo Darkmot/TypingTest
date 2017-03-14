@@ -5,7 +5,6 @@ using UnityEngine;
 public class MedEnemy : BaseEnemy {
     public float minDelay;
     public float maxDelay;
-
     float fighterDelay;
 
     public new void InitEnemy(Vector2 newPos, float iSpeed)

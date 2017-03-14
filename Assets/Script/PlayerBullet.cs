@@ -23,8 +23,15 @@ public class PlayerBullet : MonoBehaviour {
 	}
     void Update()
     {
-        if ((GameManager.State==GameState.Play)&&(!stop))
-            rt.anchoredPosition = Vector2.MoveTowards(rt.anchoredPosition, enemyTarget.rt.anchoredPosition, speed * Time.deltaTime);
+        if (enemyTarget != null)
+        {
+            if ((GameManager.State == GameState.Play) && (!stop))
+                rt.anchoredPosition = Vector2.MoveTowards(rt.anchoredPosition, enemyTarget.rt.anchoredPosition, speed * Time.deltaTime);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     void OnTriggerEnter2D(Collider2D target)
     {

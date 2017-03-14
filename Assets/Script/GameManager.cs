@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour {
     public GameObject enemySmallPrefab;
     public GameObject enemyMedPrefab;
     public GameObject enemyFighterPrefab;
+    public GameObject enemyBigPrefab;
+    public GameObject enemyBulletPrefab;
     public GameState gameState;
     public int enemyNumber;
     public int enemySpeed;
@@ -70,7 +72,10 @@ public class GameManager : MonoBehaviour {
             return _instance.textDB;
         }
     }
-
+    public static string GetLetter(int letterIndex)
+    {
+        return "" + _instance.letters[letterIndex];
+    }
     public static void InitLevel()
     {
         _instance.level = 0;
@@ -81,22 +86,31 @@ public class GameManager : MonoBehaviour {
         _instance.level++;
         _instance.enemyList = new List<BaseEnemy>();
         int startRandom = 640;
-        for (int i = 0; i < _instance.enemyNumber + (_instance.level / 2); i++)
+        for (int i = 0; i < _instance.enemyNumber + (_instance.level / 4); i++)
         {
             GameObject g = Instantiate(_instance.enemySmallPrefab);
             g.transform.SetParent(_instance.gameplayScreen, false);
             BaseEnemy enemy = g.GetComponent<BaseEnemy>();          
-            enemy.InitEnemy(new Vector2(Random.Range(10, 320), startRandom),_instance.enemySpeed + (_instance.level * 3) );
+            enemy.InitEnemy(new Vector2(Random.Range(10, 320), startRandom),_instance.enemySpeed + (_instance.level * 1) );
             startRandom = Random.Range(startRandom, startRandom + 20);
             _instance.enemyList.Add(enemy);
         }
-        for (int i = 0; i < ((_instance.level-1) / 2); i++)
+        for (int i = 0; i < (_instance.level / 3); i++)
         {
             GameObject g = Instantiate(_instance.enemyMedPrefab);
             g.transform.SetParent(_instance.gameplayScreen, false);
             MedEnemy enemy = g.GetComponent<MedEnemy>();
-            enemy.InitEnemy(new Vector2(Random.Range(10, 320), startRandom), _instance.enemySpeed + (_instance.level * 3) - 5);
+            enemy.InitEnemy(new Vector2(Random.Range(10, 320), startRandom), _instance.enemySpeed + (_instance.level * 1) - 5);
             startRandom = Random.Range(startRandom, startRandom + 30);
+            _instance.enemyList.Add(enemy);
+        }
+        for (int i = 0; i < (_instance.level / 6); i++)
+        {
+            GameObject g = Instantiate(_instance.enemyBigPrefab);
+            g.transform.SetParent(_instance.gameplayScreen, false);
+            BigEnemy enemy = g.GetComponent<BigEnemy>();
+            enemy.InitEnemy(new Vector2(Random.Range(10, 320), startRandom), _instance.enemySpeed + (_instance.level * 1) - 10);
+            startRandom = Random.Range(startRandom, startRandom + 40);
             _instance.enemyList.Add(enemy);
         }
         _instance.currentEnemy = null;
@@ -140,6 +154,13 @@ public class GameManager : MonoBehaviour {
         get
         {
             return _instance.enemyFighterPrefab;
+        }
+    }
+    public static GameObject EnemyBulletPrefab
+    {
+        get
+        {
+            return _instance.enemyBulletPrefab;
         }
     }
 

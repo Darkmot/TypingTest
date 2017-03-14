@@ -16,8 +16,8 @@ public class BaseEnemy : MonoBehaviour {
     public RectTransform rt;
     public Animator anim;
     public string wordToHit;
-    int life;
     float delay;
+    protected int life;
 
     public void InitEnemy(Vector2 newPos,float iSpeed)
     {
