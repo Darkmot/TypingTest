@@ -81,6 +81,13 @@ public class GameManager : MonoBehaviour {
         _instance.level = 0;
         InitNextLevel();
     }
+    public static int Level
+    {
+        get
+        {
+            return _instance.level;
+        }
+    }
     public static void InitNextLevel()
     {
         _instance.level++;
@@ -170,6 +177,7 @@ public class GameManager : MonoBehaviour {
         {
             if ( (_instance.playerShip.alive)&&(IsLetterPressed()))
             {
+                bool letterHit = false;
                 if (_instance.currentEnemy == null)
                 {
                     foreach (BaseEnemy enemy in enemyList)
@@ -189,6 +197,7 @@ public class GameManager : MonoBehaviour {
                                 _instance.currentEnemy = null;
                             }
                             _instance.playerShip.ShotEnemy(enemy);
+                            letterHit = true;
                             break;
                         }
                     }
@@ -210,8 +219,11 @@ public class GameManager : MonoBehaviour {
                             _instance.currentEnemy = null;
                         }
                         _instance.playerShip.ShotEnemy(prevEnemy);
+                        letterHit = true;
                     }
                 }
+
+                _instance.playerShip.AddCombo(letterHit);
             }
             else if (Input.GetKeyDown(KeyCode.Backspace))
             {

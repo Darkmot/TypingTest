@@ -11,6 +11,14 @@ public class GameplayScreen : BaseScreen {
         if (show)
             GameManager.State = GameState.Start;
         base.ActivateScreen(show);
+
+#if UNITY_ANDROID
+        TouchScreenKeyboard.hideInput = true;
+        if (show)
+            TouchScreenKeyboard.Open("", TouchScreenKeyboardType.NamePhonePad,false);
+#endif
+
+
     }
 
     public void PauseGame()

@@ -13,16 +13,33 @@ public class PlayerShip : MonoBehaviour {
     public PlayerEMP playerEMP;
     public Text empText;
     public Image empIcon;
+
+    public Slider comboSlider;
+    public Animator[] animX;
+
+    public int[] comboLimit;
+
     public int score;
     public int scoreModifier;
     public bool alive;
     public int empCount;
+
+    public int combo;
+    public int streak;
+
+    public int totalHit;
+    public int totalShot;
     
     void OnEnable()
     {
         alive = true;
         score = 0;
         scoreModifier = 1;
+        combo = 0;
+        comboSlider.value = 0;
+        streak = 0;
+        totalHit = 0;
+        totalShot = 0;
         rt.localRotation = Quaternion.identity;
         empCount = 3;
         UpdateEMP();
@@ -49,6 +66,7 @@ public class PlayerShip : MonoBehaviour {
         rt.rotation = rotation;
 
         score += scoreModifier;
+        totalHit++;
     }
     public void BlastEMP()
     {
@@ -58,6 +76,34 @@ public class PlayerShip : MonoBehaviour {
             UpdateEMP();
             playerEMP.Blast();
         }
+    }
+    public void AddCombo(bool isCombo)
+    {
+        if (isCombo)
+        {
+            combo++;
+            if (combo > streak)
+                streak = combo;
+            if (scoreModifier < 4)
+            {
+                int prevLimit = 0;
+                for (int i = 0; i < scoreModifier-1; i++)
+                    prevLimit += comboLimit[i];
+                comboSlider.value = ((scoreModifier - 1) * 30) + ((30f / (float)comboLimit[scoreModifier]) * (combo-prevLimit));
+                if (combo > prevLimit + comboLimit[scoreModifier-1] + comboLimit[scoreModifier])
+                {
+                    scoreModifier++;
+                    animX[scoreModifier - 2].SetTrigger("Show");
+                }
+            }
+        }
+        else
+        {
+            combo = 0;
+            comboSlider.value = 0;
+            scoreModifier = 1;
+        }
+        totalShot++;
     }
 
     void PlayerReady()
