@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour {
     public PlayerShip playerShip;
     public List<BaseEnemy> enemyList;
     public GameObject enemySmallPrefab;
+    public GameObject enemyMedPrefab;
+    public GameObject enemyFighterPrefab;
     public GameState gameState;
     public int enemyNumber;
     public int enemySpeed;
@@ -84,14 +86,27 @@ public class GameManager : MonoBehaviour {
             GameObject g = Instantiate(_instance.enemySmallPrefab);
             g.transform.SetParent(_instance.gameplayScreen, false);
             BaseEnemy enemy = g.GetComponent<BaseEnemy>();          
-            enemy.InitEnemy(new Vector2(Random.Range(10, 320), startRandom),_instance.enemySpeed + (_instance.level * 5) );
+            enemy.InitEnemy(new Vector2(Random.Range(10, 320), startRandom),_instance.enemySpeed + (_instance.level * 3) );
             startRandom = Random.Range(startRandom, startRandom + 20);
+            _instance.enemyList.Add(enemy);
+        }
+        for (int i = 0; i < ((_instance.level-1) / 2); i++)
+        {
+            GameObject g = Instantiate(_instance.enemyMedPrefab);
+            g.transform.SetParent(_instance.gameplayScreen, false);
+            MedEnemy enemy = g.GetComponent<MedEnemy>();
+            enemy.InitEnemy(new Vector2(Random.Range(10, 320), startRandom), _instance.enemySpeed + (_instance.level * 3) - 5);
+            startRandom = Random.Range(startRandom, startRandom + 30);
             _instance.enemyList.Add(enemy);
         }
         _instance.currentEnemy = null;
         _instance.playerShip.gameObject.SetActive(true);
         _instance.gameState = GameState.Play;
 
+    }
+    public static void AddEnemy(BaseEnemy enemy)
+    {
+        _instance.enemyList.Add(enemy);
     }
 
     public static PlayerShip Player
@@ -120,7 +135,13 @@ public class GameManager : MonoBehaviour {
             return _instance.gameplayScreen;
         }
     }
-
+    public static GameObject EnemyFighterPrefab
+    {
+        get
+        {
+            return _instance.enemyFighterPrefab;
+        }
+    }
 
     void Update()
     {
@@ -181,8 +202,11 @@ public class GameManager : MonoBehaviour {
 
     public static void ClearCurrentEnemy()
     {
-        _instance.currentEnemy.SetSelected(false);
-        _instance.currentEnemy = null;
+        if (_instance.currentEnemy != null)
+        {
+            _instance.currentEnemy.SetSelected(false);
+            _instance.currentEnemy = null;
+        }
     }
 
     public static void ClearEnemyList()

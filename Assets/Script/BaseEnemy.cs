@@ -60,7 +60,7 @@ public class BaseEnemy : MonoBehaviour {
         }
     }
 
-    void Update()
+    protected void Update()
     {
         if (GameManager.State == GameState.Play)
         {
