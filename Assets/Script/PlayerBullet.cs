@@ -8,7 +8,8 @@ public class PlayerBullet : MonoBehaviour {
     BaseEnemy enemyTarget;
 
     public RectTransform rt;
-
+    public Animator anim;
+    bool stop;
 	public void initBullet (BaseEnemy enemy) {
 
         enemyTarget = enemy;
@@ -18,18 +19,25 @@ public class PlayerBullet : MonoBehaviour {
         float angle = Mathf.Atan2(enemyPos.y, enemyPos.x) * Mathf.Rad2Deg - 90f;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         rt.rotation = rotation;
-		
+        stop = false;
 	}
     public void Update()
     {
-        rt.anchoredPosition = Vector2.MoveTowards(rt.anchoredPosition, enemyTarget.rt.anchoredPosition, speed * Time.deltaTime);
+        if (!stop)
+            rt.anchoredPosition = Vector2.MoveTowards(rt.anchoredPosition, enemyTarget.rt.anchoredPosition, speed * Time.deltaTime);
     }
     void OnTriggerEnter2D(Collider2D target)
     {
         if (target.gameObject == enemyTarget.gameObject)
         {
             enemyTarget.Hit();
-            Destroy(gameObject);
+            stop = true;
+            anim.SetTrigger("Blast");
+            transform.SetAsLastSibling();
         }
+    }
+    void OnBulletFinished()
+    {
+        Destroy(gameObject);
     }
 }

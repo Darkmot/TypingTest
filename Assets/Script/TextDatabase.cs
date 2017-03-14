@@ -24,7 +24,6 @@ public class TextDatabase : MonoBehaviour {
             }
             line[curLength].Add(newLine.ToUpper());
         }
-        GameManager.InitGame();
     }
 
     public string GetRandomWord(int wordLength)

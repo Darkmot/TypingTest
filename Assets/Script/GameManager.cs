@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour {
             _instance.enemyList.Add(enemy);
         }
         _instance.currentEnemy = null;
+        _instance.playerShip.gameObject.SetActive(true);
+        _instance.playerShip.alive = true;
 
         print("Game Initialized");
     }
@@ -112,7 +114,7 @@ public class GameManager : MonoBehaviour {
     {
         if (_instance.gameState == GameState.Play)
         {
-            if (IsLetterPressed())
+            if ( (_instance.playerShip.alive)&&(IsLetterPressed()))
             {
                 if (currentEnemy == null)
                 {

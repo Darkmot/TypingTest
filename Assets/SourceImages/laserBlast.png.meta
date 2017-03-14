@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: 9a751c08312ffc646b70daf006a73901
-timeCreated: 1489483653
+guid: 56570bd20cd7c224ab2e1f7a47dfe352
+timeCreated: 1489481005
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: explosion_0
-    21300002: explosion_1
-    21300004: explosion_2
-    21300006: explosion_3
-    21300008: explosion_4
-    21300010: explosion_5
-    21300012: explosion_6
-    21300014: explosion_7
-    21300016: explosion_8
-    21300018: explosion_9
-    21300020: explosion_10
-    21300022: explosion_11
-    21300024: explosion_12
-    21300026: explosion_13
-    21300028: explosion_14
-    21300030: explosion_15
+    21300000: laserBlast_0
+    21300002: laserBlast_1
+    21300004: laserBlast_2
+    21300006: laserBlast_3
+    21300008: laserBlast_4
+    21300010: laserBlast_5
+    21300012: laserBlast_6
+    21300014: laserBlast_7
+    21300016: laserBlast_8
+    21300018: laserBlast_9
+    21300020: laserBlast_10
+    21300022: laserBlast_11
+    21300024: laserBlast_12
+    21300026: laserBlast_13
+    21300028: laserBlast_14
+    21300030: laserBlast_15
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -94,7 +94,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: explosion_0
+      name: laserBlast_0
       rect:
         serializedVersion: 2
         x: 0
@@ -107,7 +107,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_1
+      name: laserBlast_1
       rect:
         serializedVersion: 2
         x: 64
@@ -120,7 +120,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_2
+      name: laserBlast_2
       rect:
         serializedVersion: 2
         x: 128
@@ -133,7 +133,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_3
+      name: laserBlast_3
       rect:
         serializedVersion: 2
         x: 192
@@ -146,7 +146,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_4
+      name: laserBlast_4
       rect:
         serializedVersion: 2
         x: 0
@@ -159,7 +159,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_5
+      name: laserBlast_5
       rect:
         serializedVersion: 2
         x: 64
@@ -172,7 +172,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_6
+      name: laserBlast_6
       rect:
         serializedVersion: 2
         x: 128
@@ -185,7 +185,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_7
+      name: laserBlast_7
       rect:
         serializedVersion: 2
         x: 192
@@ -198,7 +198,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_8
+      name: laserBlast_8
       rect:
         serializedVersion: 2
         x: 0
@@ -211,7 +211,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_9
+      name: laserBlast_9
       rect:
         serializedVersion: 2
         x: 64
@@ -224,7 +224,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_10
+      name: laserBlast_10
       rect:
         serializedVersion: 2
         x: 128
@@ -237,7 +237,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_11
+      name: laserBlast_11
       rect:
         serializedVersion: 2
         x: 192
@@ -250,7 +250,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_12
+      name: laserBlast_12
       rect:
         serializedVersion: 2
         x: 0
@@ -263,7 +263,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_13
+      name: laserBlast_13
       rect:
         serializedVersion: 2
         x: 64
@@ -276,7 +276,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_14
+      name: laserBlast_14
       rect:
         serializedVersion: 2
         x: 128
@@ -289,7 +289,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: explosion_15
+      name: laserBlast_15
       rect:
         serializedVersion: 2
         x: 192

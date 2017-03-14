@@ -14,8 +14,10 @@ public class BaseEnemy : MonoBehaviour {
     public Image textContainer;
 
     public RectTransform rt;
+    public Animator anim;
     public string wordToHit;
     int life;
+    float delay;
 
     public void InitEnemy()
     {
@@ -59,15 +61,28 @@ public class BaseEnemy : MonoBehaviour {
 
     public void Update()
     {
-        rt.anchoredPosition = Vector2.MoveTowards(rt.anchoredPosition,GameManager.Player.GetComponent<RectTransform>().anchoredPosition,speed * Time.deltaTime);
+        if (delay > 0f)
+        {
+            delay -= Time.deltaTime;
+        }
+        else
+        {
+            rt.anchoredPosition = Vector2.MoveTowards(rt.anchoredPosition, GameManager.Player.GetComponent<RectTransform>().anchoredPosition, speed * Time.deltaTime);
+        }
     }
 
     public void Hit()
     {
         life--;
+        delay = 0.2f;
         if (life <= 0)
         {
-            Destroy(gameObject);
+            delay = 0f;
+            anim.SetTrigger("Blast");
         }
+    }
+    void OnEnemyFinished()
+    {
+        Destroy(gameObject);
     }
 }

@@ -7,6 +7,7 @@ public class PlayerShip : MonoBehaviour {
     public GameObject bulletPrefab;
     public RectTransform rt;
 
+    public bool alive;
     public void ShotEnemy(BaseEnemy target)
     {
         GameObject g = Instantiate(bulletPrefab);
@@ -22,7 +23,23 @@ public class PlayerShip : MonoBehaviour {
     
     }
 
-    public void Death()
+    void PlayerReady()
     {
+        GameManager.InitGame();       
     }
+
+    void OnPlayerFinished()
+    {
+        gameObject.SetActive(false);
+    }
+    void OnTriggerEnter2D(Collider2D target)
+    {
+        if (target.tag == "Enemy")
+        {
+            alive = false;
+            GetComponent<Animator>().SetTrigger("Blast");
+            transform.SetAsLastSibling();
+        }
+    }
+
 }
