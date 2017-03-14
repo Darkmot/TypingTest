@@ -15,10 +15,13 @@ public class BackgroundStar : MonoBehaviour {
     }
 
 	void Update () {
-        float newY = rt.anchoredPosition.y - ((float)speed*Time.deltaTime);
-        if (newY < -limitY)
-            newY += limitY;
-        Vector2 newPos = new Vector2(rt.anchoredPosition.x,newY);
-        rt.anchoredPosition = newPos;
+        if (GameManager.State != GameState.Paused)
+        {
+            float newY = rt.anchoredPosition.y - ((float)speed * Time.deltaTime);
+            if (newY < -limitY)
+                newY += limitY;
+            Vector2 newPos = new Vector2(rt.anchoredPosition.x, newY);
+            rt.anchoredPosition = newPos;
+        }
 	}
 }

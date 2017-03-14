@@ -22,9 +22,9 @@ public class TextDatabase : MonoBehaviour {
                 line.Add(new List<string>());
                 curLength++;
             }
-            line[curLength].Add(newLine);
+            line[curLength].Add(newLine.ToUpper());
         }
-
+        GameManager.InitGame();
     }
 
     public string GetRandomWord(int wordLength)
